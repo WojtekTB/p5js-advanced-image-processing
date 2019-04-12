@@ -20,18 +20,19 @@ class ImageManupulator{
 
   drawPartOfImage(img, x, y, w, h, startX,startY){//image, x, y, width, height, location of where the x and y on the image the crop should start
     img.loadPixels();
-    let sortedPixels = [];
-    for(let i = startY; i < startY + h; i++){
-      let row = [];
-      for(let j = 0; j < w; j++){
-        row.push(img.pixels[j + startX + (i * img.width)]);
-      }
-      sortedPixels.push(row);
+    let newPixels = [];
+    for(let i = startX*3; i < startX*3+w*3; i++){
+      newPixels.push(img.pixels[i]);
     }
     // console.log(img.pixels);
     // console.log(sortedPixels);
     img.pixels = sortedPixels;
     image(img, 10, 10, w, h);
     img.updatePixels();
+  }
+
+  drawAnimation(imgs, x, y, w, h, frame){
+    let length = imgs.length;
+    image(imgs[frame%length], x, y, w, h);
   }
 }
