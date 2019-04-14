@@ -1,4 +1,6 @@
 var mainImage = [];
+var flippedImage = [];
+
 var canvas;
 var man;
 var imagex;
@@ -23,13 +25,18 @@ function setup(){
   imageX = mainImage[0].width;
   imageY = mainImage[0].height;
   frameRate(60);
+
+  for(let i = 0; i < mainImage.length; i++){
+    flippedImage[i] = man.outputFlippedImage(mainImage[i]);
+  }
 }
 function draw(){
   background(100);
+  scale(-1, 1);
   // man.drawADeafaultImage(mainImage, 0, 0, 100, 100);
   // man.drawRotatedImage(mainImage, 110, 110, 100, 100, mouseX/100);
   if(frames === 2){
-    man.drawAnimation(mainImage, mouseX, mouseY, imageX, imageY, animFrames);
+    man.drawAnimation(mainImage, -mouseX*5, mouseY*5, imageX, imageY, animFrames);
     frames = 0;
     if(animFrames > 10){
       animFrames = 0;
@@ -39,8 +46,8 @@ function draw(){
     }
   }
   else{
-    man.drawAnimation(mainImage, mouseX, mouseY, imageX, imageY, animFrames);
+    man.drawAnimation(mainImage, -mouseX*5, mouseY*5, imageX, imageY, animFrames);
   }
-  console.log(frames);
+  // console.log(frames);
   frames++;
 }

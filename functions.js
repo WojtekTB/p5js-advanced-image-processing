@@ -18,14 +18,25 @@ class ImageManupulator{
     image(img, x, y, w, h);
   }
 
+  outputFlippedImage(img){
+    let flippedImage = createImage(img.width, img.height);
+    flippedImage.loadPixels();
+    img.loadPixels();
+    for(let height = 0; height < img.height; height++){
+      for(let i = img.width*4, j = 0; i > 0, j < img.width*4; i--, j++){
+        flippedImage.pixels[j + (img.width*4 * height)] = img.pixels[i + (img.width*4 * height)];
+      }
+    }
+
+    return flippedImage;
+  }
+
   drawPartOfImage(img, x, y, w, h, startX,startY){//image, x, y, width, height, location of where the x and y on the image the crop should start
     img.loadPixels();
     let newPixels = [];
     for(let i = startX*3; i < startX*3+w*3; i++){
       newPixels.push(img.pixels[i]);
     }
-    // console.log(img.pixels);
-    // console.log(sortedPixels);
     img.pixels = sortedPixels;
     image(img, 10, 10, w, h);
     img.updatePixels();
